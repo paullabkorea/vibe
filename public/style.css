@@ -1,0 +1,4 @@
+body { font-family: Arial, sans-serif; margin: 2em; }
+form input, form textarea { width: 300px; }
+form textarea { height: 80px; }
+#posts li { margin: 0.5em 0; }

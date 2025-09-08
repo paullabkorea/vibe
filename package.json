@@ -1,0 +1,14 @@
+{
+  "name": "vibe",
+  "version": "1.0.0",
+  "description": "Landing page and simple board for Vibe Coding",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --check server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
