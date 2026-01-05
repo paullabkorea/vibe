@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바이브 코딩 | 코딩의 새로운 시대</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #1d1d1f;
+            --white: #fbfbfd;
+            --gray-100: #f5f5f7;
+            --gray-200: #e8e8ed;
+            --gray-400: #86868b;
+            --gray-600: #6e6e73;
+            --blue: #0071e3;
+            --blue-hover: #0077ed;
+            --gradient-1: linear-gradient(180deg, #1d1d1f 0%, #2d2d30 100%);
+            --gradient-hero: linear-gradient(180deg, #000000 0%, #1a1a1c 50%, #2d2d30 100%);
+            --gradient-accent: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --gradient-warm: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: rgba(29, 29, 31, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-content {
+            max-width: 1024px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--gray-200);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-cta {
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 980px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--blue-hover);
+            transform: scale(1.02);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 80px;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--gray-400);
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 10vw, 96px);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            text-align: center;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .hero-title .gradient {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(21px, 3vw, 28px);
+            font-weight: 400;
+            color: var(--gray-400);
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.5;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 16px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            padding: 18px 32px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-hover);
+            transform: scale(1.04);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--blue);
+            border: none;
+            padding: 18px 32px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            text-decoration: underline;
+        }
+
+        .hero-visual {
+            margin-top: 80px;
+            width: 100%;
+            max-width: 1000px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards;
+            animation-delay: 1s;
+        }
+
+        .code-window {
+            background: rgba(30, 30, 32, 0.9);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #ff5f57; }
+        .code-dot.yellow { background: #febc2e; }
+        .code-dot.green { background: #28c840; }
+
+        .code-content {
+            padding: 24px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--gray-200);
+        }
+
+        .code-line {
+            opacity: 0;
+            animation: typeIn 0.5s ease forwards;
+        }
+
+        .code-line:nth-child(1) { animation-delay: 1.5s; }
+        .code-line:nth-child(2) { animation-delay: 2s; }
+        .code-line:nth-child(3) { animation-delay: 2.5s; }
+        .code-line:nth-child(4) { animation-delay: 3s; }
+
+        .code-prompt { color: #28c840; }
+        .code-ai { color: #667eea; }
+        .code-result { color: #feca57; }
+
+        /* Feature Section */
+        .section {
+            padding: 120px 24px;
+            text-align: center;
+        }
+
+        .section-dark {
+            background: var(--black);
+        }
+
+        .section-light {
+            background: var(--gray-100);
+            color: var(--black);
+        }
+
+        .section-gradient {
+            background: linear-gradient(180deg, var(--black) 0%, #0a0a0c 100%);
+        }
+
+        .section-eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-400);
+            margin-bottom: 12px;
+        }
+
+        .section-light .section-eyebrow {
+            color: var(--gray-600);
+        }
+
+        .section-title {
+            font-size: clamp(40px, 6vw, 64px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .section-subtitle {
+            font-size: 21px;
+            font-weight: 400;
+            color: var(--gray-400);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            line-height: 1.5;
+        }
+
+        .section-light .section-subtitle {
+            color: var(--gray-600);
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 48px 40px;
+            text-align: left;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+
+        .icon-purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .icon-orange { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .icon-blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .icon-green { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .feature-card p {
+            font-size: 17px;
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 100px 24px;
+            background: var(--gradient-1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: clamp(56px, 8vw, 80px);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 17px;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        /* Process Section */
+        .process-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 60px;
+            text-align: left;
+        }
+
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .process-number {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 900;
+        }
+
+        .process-content h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .process-content p {
+            font-size: 17px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* Testimonial */
+        .testimonial-section {
+            padding: 140px 24px;
+            background: var(--black);
+            position: relative;
+        }
+
+        .testimonial-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .testimonial-quote {
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.4;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 120px;
+            font-weight: 900;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-author {
+            text-align: center;
+        }
+
+        .testimonial-author strong {
+            display: block;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-author span {
+            font-size: 15px;
+            color: var(--gray-400);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 160px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, #0a0a0c 0%, var(--black) 100%);
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 400px;
+            background: radial-gradient(ellipse at bottom, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+
+        .cta-subtitle {
+            font-size: 21px;
+            color: var(--gray-400);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 48px 24px;
+        }
+
+        .footer-content {
+            max-width: 1024px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-logo {
+            font-size: 16px;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-copy {
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes typeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step,
+            .process-step:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .process-content {
+                text-align: center;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="nav-logo">VIBE CODING</div>
+            <div class="nav-links">
+                <a href="#features">특징</a>
+                <a href="#process">방법론</a>
+                <a href="#stats">성과</a>
+                <a href="#testimonial">후기</a>
+            </div>
+            <button class="nav-cta">시작하기</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <p class="hero-eyebrow">AI와 함께하는 새로운 개발 패러다임</p>
+        <h1 class="hero-title">
+            코드를 쓰지 않고<br>
+            <span class="gradient">프로덕트</span>를 만들다
+        </h1>
+        <p class="hero-subtitle">
+            바이브 코딩은 자연어 대화만으로 완성도 높은 애플리케이션을 
+            만들어내는 혁신적인 AI 기반 개발 방법론입니다.
+        </p>
+        <div class="hero-cta-group">
+            <a href="#" class="btn-primary">무료로 시작하기</a>
+            <a href="#" class="btn-secondary">더 알아보기 →</a>
+        </div>
+        <div class="hero-visual">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="code-dot red"></span>
+                    <span class="code-dot yellow"></span>
+                    <span class="code-dot green"></span>
+                </div>
+                <div class="code-content">
+                    <div class="code-line"><span class="code-prompt">You:</span> "쇼핑몰 상품 목록 페이지를 만들어줘. 카드형 레이아웃으로."</div>
+                    <div class="code-line"><span class="code-ai">Claude:</span> "상품 카드 컴포넌트와 그리드 레이아웃을 생성했습니다..."</div>
+                    <div class="code-line"><span class="code-prompt">You:</span> "필터 기능도 추가하고, 모바일 반응형으로 만들어줘."</div>
+                    <div class="code-line"><span class="code-result">✓ 프로덕션 레디 코드 생성 완료</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section section-dark">
+        <p class="section-eyebrow fade-in">Features</p>
+        <h2 class="section-title fade-in">왜 바이브 코딩인가</h2>
+        <p class="section-subtitle fade-in">
+            코딩 경험이 없어도, 복잡한 문법을 몰라도<br>
+            당신의 아이디어를 현실로 만들 수 있습니다.
+        </p>
+        <div class="feature-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon icon-purple">💬</div>
+                <h3>자연어 개발</h3>
+                <p>한국어로 원하는 기능을 설명하면 AI가 프로덕션 수준의 코드를 자동으로 생성합니다.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon icon-orange">⚡</div>
+                <h3>10배 빠른 속도</h3>
+                <p>기존 개발 대비 10배 이상 빠른 속도로 MVP를 완성하고 시장 검증을 시작할 수 있습니다.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon icon-blue">🎯</div>
+                <h3>품질 보장</h3>
+                <p>AI가 생성한 코드는 최신 베스트 프랙티스를 따르며, 유지보수와 확장이 용이합니다.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon icon-green">🚀</div>
+                <h3>즉시 배포</h3>
+                <p>완성된 프로젝트를 클릭 한 번으로 배포하고, 전 세계 사용자에게 서비스할 수 있습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item fade-in">
+                <div class="stat-number">10x</div>
+                <div class="stat-label">개발 속도 향상</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">0</div>
+                <div class="stat-label">필요한 코딩 경험</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">30일</div>
+                <div class="stat-label">챌린지 완주 기간</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">100K+</div>
+                <div class="stat-label">교육 수료생</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="section section-light">
+        <p class="section-eyebrow fade-in">How it works</p>
+        <h2 class="section-title fade-in">바이브 코딩의 여정</h2>
+        <p class="section-subtitle fade-in">
+            아이디어에서 런칭까지, 세 단계로 완성됩니다.
+        </p>
+        <div class="process-container">
+            <div class="process-step fade-in">
+                <div class="process-number">1</div>
+                <div class="process-content">
+                    <h3>아이디어를 말하다</h3>
+                    <p>만들고 싶은 서비스를 자연어로 설명합니다. "쇼핑몰을 만들고 싶어요", "일정 관리 앱이 필요해요"처럼 편하게 대화하듯 시작하세요.</p>
+                </div>
+            </div>
+            <div class="process-step fade-in">
+                <div class="process-number">2</div>
+                <div class="process-content">
+                    <h3>AI와 협업하다</h3>
+                    <p>Claude Code와 대화하며 기능을 추가하고, 디자인을 다듬고, 버그를 수정합니다. 코드는 AI가, 방향은 당신이 결정합니다.</p>
+                </div>
+            </div>
+            <div class="process-step fade-in">
+                <div class="process-number">3</div>
+                <div class="process-content">
+                    <h3>세상에 선보이다</h3>
+                    <p>완성된 프로젝트를 배포하고 사용자 피드백을 받습니다. 피드백을 바탕으로 다시 AI와 대화하며 서비스를 발전시켜 나갑니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonial" class="testimonial-section">
+        <blockquote class="testimonial-quote fade-in">
+            프로그래밍 20년 경력보다 바이브 코딩 1개월이 
+            더 많은 프로덕트를 만들어냈습니다. 
+            이제 코딩의 민주화가 시작됩니다.
+        </blockquote>
+        <div class="testimonial-author fade-in">
+            <strong>이호준</strong>
+            <span>위니브 대표 · 바이브 코딩 창시자</span>
+        </div>
+    </section>
+
+    <section id="stats" class="cta-section">
+        <h2 class="cta-title fade-in">지금 시작하세요</h2>
+        <p class="cta-subtitle fade-in">
+            더 이상 코딩을 배우느라 시간을 쓰지 마세요.<br>
+            당신의 아이디어에 집중하세요.
+        </p>
+        <a href="#" class="btn-primary fade-in">30일 챌린지 참가하기</a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">VIBE CODING</div>
+            <div class="footer-links">
+                <a href="#">소개</a>
+                <a href="#">방법론</a>
+                <a href="#">사례</a>
+                <a href="#">커뮤니티</a>
+                <a href="#">문의</a>
+            </div>
+            <p class="footer-copy">© 2025 Weniv. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Nav background on scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(29, 29, 31, 0.92)';
+            } else {
+                nav.style.background = 'rgba(29, 29, 31, 0.72)';
+            }
+        });
+    </script>
+</body>
+</html>
